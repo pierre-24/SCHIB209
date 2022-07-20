@@ -7,7 +7,7 @@ from scripts.common import odeint
 
 
 class Directional1D:
-    """Plot directional field (and some solution) for an ODE `df`.
+    """Plot directional field (and some solution) for an ODE `y' = df(x, y)`.
     """
 
     def __init__(self, df: Callable[[float, float], float]):
@@ -54,9 +54,10 @@ class Directional1D:
         plt.show()
 
 
+# Logistic (Verhulst)
 r = .75
 Nf = 2
-Directional1D(lambda t, N: r*N*(Nf - N)).plot(
+Directional1D(lambda t, N: r * N * (Nf - N)).plot(
     initial_values=[(0, -.25), (0, .25), (0, 1), (0, 3)],
     graph_limits=(-.25, -Nf, 4, 2 * Nf),
     grid_increments=(.2, .2),
