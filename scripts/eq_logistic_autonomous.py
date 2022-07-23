@@ -27,7 +27,7 @@ if __name__ == '__main__':
 
     # phase portrait
     fp = PhasePortraitAutonomous1D(lambda N: logistic_df(0, N)).create_figure(
-        graph_limits=(-1, -1, 2, 0.5),
+        graph_limits=(-1, -.5, 2, 0.5),
         graph_labels=('N', 'f(N)'),
         zeros_estimate=[0, 1]
     )

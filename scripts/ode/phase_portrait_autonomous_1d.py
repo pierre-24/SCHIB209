@@ -35,7 +35,7 @@ class PhasePortraitAutonomous1D:
         ax.plot(X, Y)
 
         # horizontal line
-        plt.axhline(y=0, color='gray', linestyle='--')
+        # plt.axhline(y=0, color='gray', linestyle='--')
 
         # root
         if len(zeros_estimate):
