@@ -6,7 +6,7 @@ from scripts.ode.phase_portrait_autonomous_1d import PhasePortraitAutonomous1D
 
 def logistic_df(t: float, N: float, r: float = 1, Nf: float = 1) -> float:
     """
-    Logistic equation `:math:`\\frac{dN}{dt} = r\,N\,(N_\\infty - N)`.
+    Logistic equation `:math:`\\frac{dN}{dt} = r\\,N\\,(N_\\infty - N)`.
     """
     return r * N * (Nf - N)
 
@@ -32,10 +32,10 @@ if __name__ == '__main__':
         zeros_estimate=[0, 1]
     )
 
-    if not args.save:
-        fd.show()
-        fp.show()
-    else:
+    fd.show()
+    fp.show()
+
+    if args.save:
         fd.savefig('{}_directional.pdf'.format(args.save))
         fp.savefig('{}_phase_portrait.pdf'.format(args.save))
 

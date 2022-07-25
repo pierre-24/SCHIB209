@@ -37,10 +37,10 @@ if __name__ == '__main__':
         graph_size=(4, 4)
     )
 
-    if not args.save:
-        fd.show()
-        fp.show()
-    else:
+    fd.show()
+    fp.show()
+
+    if args.save:
         fd.savefig('{}_directional.pdf'.format(args.save))
         fp.savefig('{}_phase_portrait.pdf'.format(args.save))
 

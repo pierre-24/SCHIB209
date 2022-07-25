@@ -2,7 +2,6 @@ from typing import Callable, Tuple, List
 
 import matplotlib.pyplot as plt
 import numpy
-from scipy import optimize
 
 
 class PhasePortraitAutonomous1D:

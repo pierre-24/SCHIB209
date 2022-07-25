@@ -3,7 +3,7 @@ from typing import List, Tuple, Callable
 import matplotlib.pyplot as plt
 import numpy as np
 
-from scripts.ode.rk4 import odeint
+from scripts.ode.integrator import odeint
 
 
 class Directional1D:
