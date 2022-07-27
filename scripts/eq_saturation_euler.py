@@ -15,7 +15,7 @@ def saturation_df(t: float, N: float, r=.25) -> float:
 
 X_LIM = 25
 Y0 = .1
-WIN = (1.5, .4, 4, .7)
+SUBWIN = (1.5, .4, 4, .7)
 
 
 def mk_plots(ax):
@@ -46,15 +46,15 @@ if __name__ == '__main__':
     ax1.set_ylabel('y(x)')
 
     p = plt.Polygon(
-        np.array([(WIN[0], WIN[1]), (WIN[2], WIN[1]), (WIN[2], WIN[3]), (WIN[0], WIN[3])]),
+        np.array([(SUBWIN[0], SUBWIN[1]), (SUBWIN[2], SUBWIN[1]), (SUBWIN[2], SUBWIN[3]), (SUBWIN[0], SUBWIN[3])]),
         ec='gray', fill=False)
 
     ax1.add_patch(p)
 
     ax2 = fig.add_subplot(1, 2, 2)
 
-    ax2.set_xlim(WIN[0], WIN[2])
-    ax2.set_ylim(WIN[1], WIN[3])
+    ax2.set_xlim(SUBWIN[0], SUBWIN[2])
+    ax2.set_ylim(SUBWIN[1], SUBWIN[3])
 
     mk_plots(ax2)
     ax2.set_xlabel('x')

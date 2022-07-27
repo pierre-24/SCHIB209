@@ -8,6 +8,15 @@ def euler(df: Callable[[float, float], float], x0: float, y0: float, dx: float) 
     return y0 + df(x0, y0) * dx
 
 
+def heun(df: Callable[[float, float], float], x0: float, y0: float, dx: float) -> float:
+    """Heun integrator (https://en.wikipedia.org/wiki/Heun%27s_method)"""
+
+    k1 = df(x0, y0)
+    k2 = df(x0 + dx, y0 + k1 * dx)
+
+    return y0 + .5 * (k1 + k2) * dx
+
+
 def rk4(df, x0: float, y0: float, dx: float) -> float:
     """Runge-Kutta integrator 4 (https://en.wikipedia.org/wiki/Runge%E2%80%93Kutta_methods)
     """
