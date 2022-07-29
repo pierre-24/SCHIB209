@@ -3,8 +3,6 @@ import argparse
 import numpy
 import numpy as np
 
-from scripts.ode.integrator import odeint, euler, heun
-
 import matplotlib.pyplot as plt
 
 
