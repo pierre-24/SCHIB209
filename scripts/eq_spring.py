@@ -25,7 +25,6 @@ def damped_spring_f(X: numpy.ndarray, m: float = 1, k: float = 1, g: float = 0) 
         return numpy.exp((u + t) * X) + numpy.exp((u - t) * X)
 
 
-Y0 = 1
 DX = 0.25
 WIN = (0, -2, 5, 2)
 
