@@ -55,16 +55,12 @@ if __name__ == '__main__':
 
     fig_ip.subplots_adjust(left=MARGIN_LEFT, bottom=MARGIN_BOTTOM)
 
-    fig_ip.show()
-
     fig_in = PhasePortrait2D(numpy.array([[-3, -13], [5, -1]])).create_figure(
         graph_limits=(-2, -2, 2, 2),
         graph_size=(3.5, 3.5)
     )
 
     fig_in.subplots_adjust(left=MARGIN_LEFT, bottom=MARGIN_BOTTOM)
-
-    fig_in.show()
 
     fig_o = PhasePortrait2D(numpy.array([[3, 9], [-4, -3]])).create_figure(
         graph_limits=(-2, -2, 2, 2),
@@ -73,7 +69,25 @@ if __name__ == '__main__':
 
     fig_o.subplots_adjust(left=MARGIN_LEFT, bottom=MARGIN_BOTTOM)
 
-    fig_o.show()
+    fig_in.subplots_adjust(left=MARGIN_LEFT, bottom=MARGIN_BOTTOM)
+
+    fig_n0 = PhasePortrait2D(numpy.array([[-1, 2], [1, -2]])).create_figure(
+        graph_limits=(-2, -2, 2, 2),
+        graph_size=(3.5, 3.5)
+    )
+
+    fig_n0.subplots_adjust(left=MARGIN_LEFT, bottom=MARGIN_BOTTOM)
+
+    fig_n0.show()
+
+    fig_p0 = PhasePortrait2D(numpy.array([[1, 2], [1, 2]])).create_figure(
+        graph_limits=(-2, -2, 2, 2),
+        graph_size=(3.5, 3.5)
+    )
+
+    fig_p0.subplots_adjust(left=MARGIN_LEFT, bottom=MARGIN_BOTTOM)
+
+    fig_p0.show()
 
     if args.save:
         fig_nn.savefig('{}_phase2d_nn.pdf'.format(args.save))
@@ -84,3 +98,5 @@ if __name__ == '__main__':
         fig_in.savefig('{}_phase2d_in.pdf'.format(args.save))
         fig_ip.savefig('{}_phase2d_ip.pdf'.format(args.save))
         fig_o.savefig('{}_phase2d_o.pdf'.format(args.save))
+        fig_n0.savefig('{}_phase2d_n0.pdf'.format(args.save))
+        fig_p0.savefig('{}_phase2d_p0.pdf'.format(args.save))
