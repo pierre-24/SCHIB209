@@ -2,7 +2,7 @@ import argparse
 
 import numpy
 
-from scripts.ode.phase_portrait_2d import PhasePortrait2D
+from scripts.ode.phase_portrait_2d import PhasePortraitAutonomous2D
 
 MARGIN_LEFT = .2
 MARGIN_BOTTOM = .15
@@ -13,56 +13,56 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    fig_nn = PhasePortrait2D(numpy.array([[-2, 1], [1, -2]])).create_figure(
+    fig_nn = PhasePortraitAutonomous2D(numpy.array([[-2, 1], [1, -2]])).create_figure(
         graph_limits=(-2, -2, 2, 2),
         graph_size=(3.5, 3.5)
     )
 
     fig_nn.subplots_adjust(left=MARGIN_LEFT, bottom=MARGIN_BOTTOM)
 
-    fig_pp = PhasePortrait2D(numpy.array([[2, 1], [1, 2]])).create_figure(
+    fig_pp = PhasePortraitAutonomous2D(numpy.array([[2, 1], [1, 2]])).create_figure(
         graph_limits=(-2, -2, 2, 2),
         graph_size=(3.5, 3.5)
     )
 
     fig_pp.subplots_adjust(left=MARGIN_LEFT, bottom=MARGIN_BOTTOM)
 
-    fig_n = PhasePortrait2D(numpy.array([[-7, 1], [-4, -3]])).create_figure(
+    fig_n = PhasePortraitAutonomous2D(numpy.array([[-7, 1], [-4, -3]])).create_figure(
         graph_limits=(-2, -2, 2, 2),
         graph_size=(3.5, 3.5)
     )
 
     fig_n.subplots_adjust(left=MARGIN_LEFT, bottom=MARGIN_BOTTOM)
 
-    fig_p = PhasePortrait2D(numpy.array([[7, 1], [-4, 3]])).create_figure(
+    fig_p = PhasePortraitAutonomous2D(numpy.array([[7, 1], [-4, 3]])).create_figure(
         graph_limits=(-2, -2, 2, 2),
         graph_size=(3.5, 3.5)
     )
 
     fig_p.subplots_adjust(left=MARGIN_LEFT, bottom=MARGIN_BOTTOM)
 
-    fig_np = PhasePortrait2D(numpy.array([[1, 2], [3, 2]])).create_figure(
+    fig_np = PhasePortraitAutonomous2D(numpy.array([[1, 2], [3, 2]])).create_figure(
         graph_limits=(-2, -2, 2, 2),
         graph_size=(3.5, 3.5)
     )
 
     fig_np.subplots_adjust(left=MARGIN_LEFT, bottom=MARGIN_BOTTOM)
 
-    fig_ip = PhasePortrait2D(numpy.array([[3, -13], [5, 1]])).create_figure(
+    fig_ip = PhasePortraitAutonomous2D(numpy.array([[3, -13], [5, 1]])).create_figure(
         graph_limits=(-2, -2, 2, 2),
         graph_size=(3.5, 3.5)
     )
 
     fig_ip.subplots_adjust(left=MARGIN_LEFT, bottom=MARGIN_BOTTOM)
 
-    fig_in = PhasePortrait2D(numpy.array([[-3, -13], [5, -1]])).create_figure(
+    fig_in = PhasePortraitAutonomous2D(numpy.array([[-3, -13], [5, -1]])).create_figure(
         graph_limits=(-2, -2, 2, 2),
         graph_size=(3.5, 3.5)
     )
 
     fig_in.subplots_adjust(left=MARGIN_LEFT, bottom=MARGIN_BOTTOM)
 
-    fig_o = PhasePortrait2D(numpy.array([[3, 9], [-4, -3]])).create_figure(
+    fig_o = PhasePortraitAutonomous2D(numpy.array([[3, 9], [-4, -3]])).create_figure(
         graph_limits=(-2, -2, 2, 2),
         graph_size=(3.5, 3.5)
     )
@@ -71,7 +71,7 @@ if __name__ == '__main__':
 
     fig_in.subplots_adjust(left=MARGIN_LEFT, bottom=MARGIN_BOTTOM)
 
-    fig_n0 = PhasePortrait2D(numpy.array([[-1, 2], [1, -2]])).create_figure(
+    fig_n0 = PhasePortraitAutonomous2D(numpy.array([[-1, 2], [1, -2]])).create_figure(
         graph_limits=(-2, -2, 2, 2),
         graph_size=(3.5, 3.5)
     )
@@ -80,7 +80,7 @@ if __name__ == '__main__':
 
     fig_n0.show()
 
-    fig_p0 = PhasePortrait2D(numpy.array([[1, 2], [1, 2]])).create_figure(
+    fig_p0 = PhasePortraitAutonomous2D(numpy.array([[1, 2], [1, 2]])).create_figure(
         graph_limits=(-2, -2, 2, 2),
         graph_size=(3.5, 3.5)
     )
