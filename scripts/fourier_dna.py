@@ -13,7 +13,7 @@ T1 = -20
 T2 = -16
 
 
-def gen_im(name: str, n: int, func_draw: Callable[[ImageDraw], None], mag: float = 0.8):
+def gen_im(name: str, n: int, func_draw: Callable[[ImageDraw], None], mag: float = 1):
     im = Image.new('L', (SZ, SZ), (255, ))
     draw = ImageDraw.Draw(im)
 
@@ -25,12 +25,14 @@ def gen_im(name: str, n: int, func_draw: Callable[[ImageDraw], None], mag: float
     ft = image_2dft(image)
     ftm = numpy.abs(ft)
 
+    mx = ftm.max()
+
     ftm[1:] += ftm[:SZ-1]
     ftm[:SZ-1] += ftm[1:]
     ftm[:, 1:] += ftm[:, :SZ-1]
     ftm[:, :SZ-1] += ftm[:, 1:]
 
-    ftm = 255 - ftm / (mag * ftm.max()) * 255
+    ftm = 255 - ftm / (mag * mx) * 255
 
     Image.fromarray(ftm).convert('L').save('{}_P{}.png'.format(name, n))
 
@@ -55,7 +57,7 @@ if __name__ == '__main__':
     # G2 - tilted slits (zig)
     def draw_g2(draw: ImageDraw):
         INC = (16, 40)
-        N = (16, 7)
+        N = (17, 7)
 
         for y in range(N[1]):
             for x in range(N[0]):
