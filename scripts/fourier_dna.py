@@ -7,6 +7,10 @@ from typing import Callable
 from scripts.fourier.transform import image_2dft
 
 SZ = 257
+P = 40
+A = 7
+T1 = -20
+T2 = -16
 
 
 def gen_im(name: str, n: int, func_draw: Callable[[ImageDraw], None], mag: float = 0.8):
@@ -39,58 +43,61 @@ if __name__ == '__main__':
 
     # G1 - horizontal slits
     def draw_g1(draw: ImageDraw):
-        INC = (22, 8)
-        N = (12, 32)
+        INC = (22, 16)
+        N = (12, 16)
 
         for y in range(N[1]):
             for x in range(N[0]):
-                draw.line((INC[0] * x + 4, INC[1] * y + 4, INC[0] * x + 12, INC[1] * y + 4), width=1)
+                draw.line((INC[0] * x + 0, INC[1] * y + 4, INC[0] * x + 14, INC[1] * y + 4), width=1)
 
-    gen_im(args.save, 1, draw_g1)
+    gen_im(args.save, 1, draw_g1, mag=0.9)
 
     # G2 - tilted slits (zig)
     def draw_g2(draw: ImageDraw):
-        INC = (22, 8)
-        N = (12, 32)
+        INC = (16, 40)
+        N = (16, 7)
 
         for y in range(N[1]):
             for x in range(N[0]):
-                draw.line((INC[0] * x + 4, INC[1] * y + 3, INC[0] * x + 12, INC[1] * y + 9), width=1)
+                draw.line((INC[0] * x + 0, INC[1] * y + 0, INC[0] * x + 14, INC[1] * y + P / 2), width=1)
 
-    gen_im(args.save, 2, draw_g2)
+    gen_im(args.save, 2, draw_g2, mag=0.9)
 
     # G4 - zigzag
     def draw_g4(draw: ImageDraw):
-        INC = (16, 8)
-        N = (16, 33)
+        INC = (16, P / 2)
+        N = (16, 15)
 
         for x in range(N[0]):
             draw.line([
-                (INC[0] * x + (0 if y % 2 == 0 else 8), INC[1] * y - 0) for y in range(N[1])
-            ], width=1, joint='curve')
+                (INC[0] * x + (0 if y % 2 == 0 else 2 * A), INC[1] * y - 0) for y in range(N[1])
+            ], width=1)
 
     gen_im(args.save, 4, draw_g4)
 
     # G5 - zigzag squized
     def draw_g5(draw: ImageDraw):
-        INC = (16, 8)
-        N = (16, 33)
+        INC = (16, 12)
+        N = (16, 23)
 
         for x in range(N[0]):
             draw.line([
-                (INC[0] * x + (0 if y % 2 == 0 else 14), INC[1] * y - 0) for y in range(N[1])
-            ], width=2)
+                (INC[0] * x + (0 if y % 2 == 0 else 2 * A), INC[1] * y - 0) for y in range(N[1])
+            ], width=1)
 
     gen_im(args.save, 5, draw_g5)
 
     # G6 - true sin
+    Y = numpy.arange(0, 257)
+    SX = A * numpy.sin(Y * 2 * numpy.pi / P + T1)
+    SX2 = A * numpy.sin(Y * 2 * numpy.pi / P + T2)
+
     def draw_g6(draw: ImageDraw):
         INC = (16,)
-        N = (16,)
+        N = (17,)
 
         for x in range(N[0]):
-            Y = numpy.arange(0, 257)
-            X = (4 + x * INC[0] + 7 * numpy.sin(Y * 2 * numpy.pi / 40 + 2)).astype(int)
+            X = (A + x * INC[0] + SX).astype(int)
             draw.line(list(zip(X, Y)), width=1)
 
     gen_im(args.save, 6, draw_g6)
@@ -98,27 +105,31 @@ if __name__ == '__main__':
     # G7 - true double sin
     def draw_g7(draw: ImageDraw):
         INC = (16,)
-        N = (16,)
+        N = (17,)
 
         for x in range(N[0]):
-            Y = numpy.arange(0, 257)
-            X = (4 + x * INC[0] + 7 * numpy.sin(Y * 2 * numpy.pi / 40 + 2)).astype(int)
-            X2 = (4 + x * INC[0] + 7 * numpy.sin(Y * 2 * numpy.pi / 40 + 6)).astype(int)
+            X = (x * INC[0] + SX).astype(int)
+            X2 = (x * INC[0] + SX2).astype(int)
             draw.line(list(zip(X, Y)))
             draw.line(list(zip(X2, Y)))
 
     gen_im(args.save, 7, draw_g7)
 
     # G8 - dot
+    Y = 4 * numpy.arange(0, 129)
+    SX = A * numpy.sin(Y * 2 * numpy.pi / P + T1)
+    SX2 = A * numpy.sin(Y * 2 * numpy.pi / P + T2)
+
     def draw_g8(draw: ImageDraw):
         INC = (16,)
-        N = (16,)
+        N = (17,)
 
         for x in range(N[0]):
-            Y = 4 * numpy.arange(0, 129)
-            X = (4 + x * INC[0] + 8 * numpy.sin(Y * 2 * numpy.pi / 40 + 2)).astype(int)
+            X = (A + x * INC[0] + SX).astype(int)
+
             draw.point(list(zip(X, Y)))
 
+            # enhance dot
             for xy in [(0, 1), (0, -1), (1, 0), (-1, 0)]:
                 draw.point(list(zip(X + xy[0], Y + xy[1])), fill=150)
 
@@ -130,12 +141,33 @@ if __name__ == '__main__':
     # G9 - double dot
     def draw_g9(draw: ImageDraw):
         INC = (16,)
-        N = (16,)
+        N = (17,)
 
         for x in range(N[0]):
-            Y = 4 * numpy.arange(0, 65)
-            X = (4 + x * INC[0] + 7 * numpy.sin(Y * 2 * numpy.pi / 40 + 2)).astype(int)
-            X2 = (4 + x * INC[0] + 7 * numpy.sin(Y * 2 * numpy.pi / 40 + 6)).astype(int)
+            X = (A + x * INC[0] + SX).astype(int)
+            X2 = (A + x * INC[0] + SX2).astype(int)
+
+            for xy in [(0, 1), (0, -1), (1, 0), (-1, 0)]:
+                draw.point(list(zip(X + xy[0], Y + xy[1])), fill=150)
+                draw.point(list(zip(X2 + xy[0], Y + xy[1])), fill=150)
+
+            for xy in [(1, 1), (1, -1), (-1, 1), (-1, -1)]:
+                draw.point(list(zip(X + xy[0], Y + xy[1])), fill=200)
+                draw.point(list(zip(X2 + xy[0], Y + xy[1])), fill=200)
+
+            draw.point(list(zip(X, Y)))
+            draw.point(list(zip(X2, Y)))
+
+    gen_im(args.save, 9, draw_g9)
+
+    # G10 - double dot + helix
+    def draw_g10(draw: ImageDraw):
+        INC = (16,)
+        N = (17,)
+
+        for x in range(N[0]):
+            X = (A + x * INC[0] + SX).astype(int)
+            X2 = (A + x * INC[0] + SX2).astype(int)
 
             for i in range(Y.shape[0]):
                 x1, x2 = X[i], X2[i]
@@ -157,5 +189,6 @@ if __name__ == '__main__':
             draw.point(list(zip(X, Y)))
             draw.point(list(zip(X2, Y)))
 
-    gen_im(args.save, 9, draw_g9)
+
+    gen_im(args.save, 10, draw_g10)
 

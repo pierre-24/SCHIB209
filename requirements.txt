@@ -2,4 +2,3 @@ matplotlib
 scipy
 numpy
 Pillow
-bezier
