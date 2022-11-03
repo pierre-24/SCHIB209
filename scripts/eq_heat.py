@@ -8,19 +8,34 @@ import matplotlib.animation as anim
 
 
 DX = 0.001
-WIN = (-.1, 0, 1.1, 1.2)
-
-
-def u_step(X: numpy.ndarray, t: float, N: int = 200, k: float = 0.2, L: float = 1) -> numpy.ndarray:
-    return numpy.array([
-        4 / (n * numpy.pi) * numpy.sin(n * numpy.pi * X / L) * numpy.exp(-k * (n * numpy.pi / L)**2 * t)
-        for n in range(1, N+1, 2)
-    ]).sum(axis=0)
+WIN = (-.1, -1, 1.1, 10.1)
 
 
 def u_slope(X: numpy.ndarray, t: float, N: int = 200, k: float = 0.2, L: float = 1) -> numpy.ndarray:
     return numpy.array([
         2 * L / (n * numpy.pi) * numpy.sin(n * numpy.pi * X / L) * numpy.exp(-k * (n * numpy.pi / L)**2 * t)
+        for n in range(1, N+1)
+    ]).sum(axis=0)
+
+
+def u_step(X: numpy.ndarray, t: float, N: int = 200, k: float = 0.2, L: float = 1, Ti: float = 1) -> numpy.ndarray:
+    return numpy.array([
+        Ti * 4 / (n * numpy.pi) * numpy.sin(n * numpy.pi * X / L) * numpy.exp(-k * (n * numpy.pi / L)**2 * t)
+        for n in range(1, N+1, 2)
+    ]).sum(axis=0)
+
+
+def u_step_T(
+        X: numpy.ndarray,
+        t: float, N: int = 200,
+        k: float = 0.1,
+        L: float = 1,
+        Ti: float = 3.,
+        T1: float = .5,
+        T2: float = 10
+) -> numpy.ndarray:
+    return T1 + (T2-T1)/L * X + numpy.array([
+        2*((Ti-T1)-(Ti-T2)*(-1)**n) / (n*numpy.pi) * numpy.sin(n * numpy.pi * X / L) * numpy.exp(-k * (n * numpy.pi / L)**2 * t)
         for n in range(1, N+1)
     ]).sum(axis=0)
 
@@ -53,7 +68,7 @@ if __name__ == '__main__':
             t = 0.001
 
         fig.suptitle('t={:.2f}s'.format(t))
-        line.set_data(X, u_slope(X, t))
+        line.set_data(X, u_step_T(X, t))
 
     ani = anim.FuncAnimation(fig, run, frames=400, init_func=init, repeat_delay=1000)
 
